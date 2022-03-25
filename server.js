@@ -85,15 +85,11 @@ app.get('/app/flips/:number', (req, res) => {
 app.get('/app/call/:guess', (req, res) => {
     var result = flipACoin(req.params.guess)
     var flip = coinFlip()
-    if (req.params.guess != 'heads' && req.params.guess != 'tails'){
-        res.status(404).end('Invalid Input')
-        res.type("text/json")
-    }
-    else{
-        var result = flip == req.params.guess ? 'win':'lose'
-        res.status(200).json({'call': req.params.guess, 'flip': flip, 'result':result })
-        res.type("text/json")
-    }
+    
+    var result = flip == req.params.guess ? 'win':'lose'
+    res.status(200).json({'call': req.params.guess, 'flip': flip, 'result':result })
+    res.type("text/json")
+    
     
 })
 
