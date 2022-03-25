@@ -45,6 +45,19 @@ function coinFlip() {
     
   }
 
+  function flipACoin(calls) {
+    var flips = coinFlip()
+    if (calls == null){
+      var str = "Error: no input."
+      return str
+    }
+    if (calls != 'heads' && calls != 'tails'){
+      var str = "Usage: node guess-flip.js --call=[heads|tails]"
+      return str
+    }
+    return calls == flips ? {call: calls, flip: flips, result: 'win'}:{call: calls, flip: flips, result: 'lose'};
+  }
+
 app.get('/app', (req, res) => {
     res.status(200).end('OK')
     res.type("text/plain")
@@ -68,6 +81,18 @@ app.get('/app/flips/:number', (req, res) => {
     res.status(200).json( {'raw': flips, 'summary':count})
 })
 
+app.get('/app/call/:guess', (req, res) => {
+    var result = flipACoin(req.params.guess)
+    var flip = coinFlip()
+    if (req.params.guess != 'heads' && req.params.guess != 'tails'){
+        res.status(404).end('Invalid Input')
+    }
+    else{
+        var result = flip == req.params.guess ? 'win':'lose'
+        res.status(200).json({'call': req.params.guess, 'flip': flip, 'result':result })
+    }
+    
+})
 
 
 app.use(function(req, res) {
