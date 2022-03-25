@@ -16,7 +16,7 @@ function coinFlip() {
   }
 
 app.get('/app', (req, res) => {
-    res.status(200).end('The bugger works')
+    res.status(200).end('OK')
     res.type("text/plain")
 })
 
